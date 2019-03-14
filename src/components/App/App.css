@@ -1,0 +1,72 @@
+html,
+body {
+  margin: 0;
+}
+
+#appContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.article {
+  border-radius: 40px;
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid black;
+}
+
+.padding {
+  padding: 10px;
+}
+
+.articleHeader {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.articleTitle {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.articleAuthor {
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+
+.articlePreview {
+  display: flex;
+  flex-direction: column;
+}
+
+.articlePreview button {
+  margin-left: 10px;
+  border-radius: 20px;
+  background-color: dodgerblue;
+  color: white;
+  box-shadow: none;
+  border: none;
+}
+
+.articlePreview:hover {
+  background-color: cornflowerblue;
+}
+
+.articlePreview:active {
+  outline: none;
+  background-color: blue;
+}
+
+.articlePreview:focus {
+  outline: none;
+}
+
+.previewGrid {
+  position: relative;
+  display: grid;
+  column-gap: 2%;
+  grid-template-columns: auto auto;
+  justify-content: space-evenly;
+}
