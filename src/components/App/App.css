@@ -66,7 +66,6 @@ body {
 .previewGrid {
   position: relative;
   display: grid;
-  column-gap: 2%;
-  grid-template-columns: auto auto;
+  grid-template-columns: 30% 30% 30%;
   justify-content: space-evenly;
 }

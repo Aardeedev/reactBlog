@@ -5,24 +5,43 @@ import posts from "../data/post";
 import users from "../data/users";
 import Comment from "../comment";
 
+fetch("https://jsonplaceholder.typicode.com/comments").then(fetched =>
+  fetched.json()
+);
+
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       selectedArticle: null,
       articleObj: null,
-      displaySelection: 0
+      displaySelection: 0,
+      comments: [],
+      posts: [],
+      users: []
     };
+  }
+
+  componentDidMount() {
+    fetch("https://jsonplaceholder.typicode.com/posts")
+      .then(response => response.json())
+      .then(data => this.setState({ posts: data }));
+    fetch("https://jsonplaceholder.typicode.com/comments")
+      .then(response => response.json())
+      .then(data => this.setState({ comments: data }));
+    fetch("https://jsonplaceholder.typicode.com/users")
+      .then(response => response.json())
+      .then(data => this.setState({ users: data }));
   }
 
   selectArticle = id => {
     this.setState({
       selectedArticle: id,
-      articleObj: posts.find(post => post.id === id)
+      articleObj: this.state.posts.find(post => post.id === id)
     });
   };
 
-  userName = id => users.find(user => user.id === id).name;
+  userName = id => this.state.users.find(user => user.id === id).name;
 
   nextSix = change => {
     if (
@@ -37,13 +56,15 @@ class App extends Component {
   };
 
   render() {
+    let { posts, users, comments } = this.state;
+    let fetchComplete = posts[0] && users[0] && comments[0];
     return (
       <div id="appContainer">
         <h1>The super duper nonsense blog</h1>
 
-        {!this.state.selectedArticle && (
+        {!this.state.selectedArticle && fetchComplete && (
           <div className="previewGrid">
-            {posts
+            {this.state.posts
               .slice(
                 this.state.displaySelection,
                 this.state.displaySelection + 6
@@ -67,7 +88,10 @@ class App extends Component {
               body={this.state.articleObj.body}
               selectArticle={() => this.selectArticle(null)}
             />
-            <Comment selectedArticle={this.state.selectedArticle} />
+            <Comment
+              comments={this.state.comments}
+              selectedArticle={this.state.selectedArticle}
+            />
           </>
         )}
       </div>
